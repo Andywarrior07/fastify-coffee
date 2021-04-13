@@ -7,9 +7,19 @@ const getCoffees = async (request, reply) => {
 
 const getCoffeeById = async (request, reply) => {
   const { id } = request.params;
-  console.log(id);
-  const coffee = await Coffee.findById(id);
-  return reply.send(coffee);
+
+  try {
+    const coffee = await Coffee.findById(id);
+
+    if (!coffee) {
+      return reply.status(404).send({ msg: 'Coffee does not found' });
+    }
+    return reply.send(coffee);
+  } catch (err) {
+    console.log(err);
+
+    return reply.status(404).send({ msg: 'Coffee does not found' });
+  }
 };
 
 const createCoffee = async (request, reply) => {
