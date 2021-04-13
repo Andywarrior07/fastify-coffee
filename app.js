@@ -9,7 +9,6 @@ const connectDatabase = async () => {
 
 connectDatabase();
 
-fastify.use(require('cors')());
 fastify.register(require('./src/routes/coffees'));
 
 fastify.listen(3001, function (err, address) {
